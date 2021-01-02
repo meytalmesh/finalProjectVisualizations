@@ -64,8 +64,8 @@ def HighlightColor(color):
         return WD_COLOR_INDEX.TURQUOISE
     if (color.upper() == 'BRIGHT_GREEN'):
         return WD_COLOR_INDEX.BRIGHT_GREEN
-
-
     return WD_COLOR_INDEX.AUTO
+
+
 
 
