@@ -89,15 +89,17 @@ def fullText (docID):
     document.save('demoFullText.docx')
 
 
-def covertDocxToImage(fileName):
+def convertDocxToImage(fileName):
     #convert docx to pdf
     convert(fileName)
     # convert pdf to image
-    images = convert_from_path('demoSummary.pdf')
+
+    newFileName= fileName.replace('.docx','')
+
+    images = convert_from_path(newFileName+'.pdf')
     for i, image in enumerate(images):
-        fname = 'image'+str(i)+'.png'
+        fname = newFileName+ str(i)+'.png'
         image.save(fname, "PNG")
-        #bhfgbn
 
 
 
