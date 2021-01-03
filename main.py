@@ -10,11 +10,11 @@ def print_hi(name):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print_hi('PyCharm')
-
-    HighlightText.Summary(1)
+    #HighlightText.createDir()
+    HighlightText.Summary(1, 0.3)
  #   HighlightText.fullText(1)
   #  HighlightText.bold(1)
-   # HighlightText.highligth(1,'pink')
+    HighlightText.highligth(1,'YELLOW')
 
 ##    addText.addJsonToDB()
 

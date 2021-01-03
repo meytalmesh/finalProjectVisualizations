@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="docDB" uuid="98d0f7e2-61b4-4fc2-a9e8-4d4368d8fdea">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\ASUS\PycharmProjects\finalProjectVisualizations\docDB.db</jdbc-url>
+    </data-source>
+  </component>
+</project>
