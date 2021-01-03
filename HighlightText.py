@@ -5,7 +5,11 @@ from docx.shared import Inches
 from docx.enum.text import WD_COLOR_INDEX
 from pdf2image import convert_from_path
 from docx2pdf import convert
-
+from pdf2image.exceptions import (
+ PDFInfoNotInstalledError,
+ PDFPageCountError,
+ PDFSyntaxError
+)
 
 
 
@@ -90,12 +94,15 @@ def fullText (docID):
 
 
 def covertDocxToImage(fileName):
-
+    #convert docx to pdf
     convert(fileName)
+    # convert pdf to image
 
-    page = convert_from_path('demoSummary.pdf')
-    page.save('out.jpg', 'PNJ')
+    newFileName= fileName.replace('.docx','')
 
-
+    images = convert_from_path(newFileName+'.pdf')
+    for i, image in enumerate(images):
+        fname = newFileName+ str(i)+'.png'
+        image.save(fname, "PNG")
 
 
