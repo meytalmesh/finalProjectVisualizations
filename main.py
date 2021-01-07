@@ -11,10 +11,12 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('PyCharm')
     #HighlightText.createDir()
-    HighlightText.Summary(1, 0.3)
- #   HighlightText.fullText(1)
-  #  HighlightText.bold(1)
-    HighlightText.highligth(1,'YELLOW')
+    #HighlightText.Summary(1, 0.3)
+    #HighlightText.fullText(1)
+    #HighlightText.bold(1)
+    #HighlightText.highligth(1,'YELLOW')
+    #HighlightText.fontSize(1, 0.7)
+    HighlightText.GradualFontSize(1)
 
 ##    addText.addJsonToDB()
 
