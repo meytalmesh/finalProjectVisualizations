@@ -5,6 +5,10 @@ from docx.shared import Inches
 from docx.enum.text import WD_COLOR_INDEX
 from pdf2image import convert_from_path
 from docx2pdf import convert
+from docx.shared import Pt
+
+import os
+
 
 
 def createDir():
@@ -84,6 +88,58 @@ def HighlightColor(color):
     if (color.upper() == 'BRIGHT_GREEN'):
         return WD_COLOR_INDEX.BRIGHT_GREEN
     return WD_COLOR_INDEX.AUTO
+
+def fontSize(docID, threshold=0.5):
+    data = DB.get_json(docID)
+    dic = addText.convertToText(data)
+    document = Document()
+    document.add_heading('Font Size', 0)
+    p = document.add_paragraph()
+    style = document.styles['Normal']
+    font = style.font
+    font.size = Pt(12)
+    for i in range(len(dic)):
+        if (float(dic[i].get('wight')) < threshold):
+            p.add_run(dic[i].get('content').replace("\n" , ' ')).font
+
+        else:
+            font = p.add_run(dic[i].get('content').replace("\n" , ' ')).font
+            font.size = Pt(15)
+    #document.add_page_break()
+    document.save('demoFontSize.docx')
+    convertDocxToImage("demoFontSize.docx")
+
+def GradualFontSize(docID):
+    lowRange=0
+    midRange=0.3
+    highRange=0.5
+    higherRange=0.7
+
+    data = DB.get_json(docID)
+    dic = addText.convertToText(data)
+    document = Document()
+    document.add_heading('Gradual Font Size', 0)
+    p = document.add_paragraph()
+    style = document.styles['Normal']
+    font = style.font
+    font.size = Pt(12)
+    for i in range(len(dic)):
+        threshold = float(dic[i].get('wight'))
+        if (threshold >= lowRange and threshold <= midRange):
+            font = p.add_run(dic[i].get('content').replace("\n", ' ')).font
+            font.size = Pt(12)
+        elif (threshold > midRange and threshold <= highRange):
+            font = p.add_run(dic[i].get('content').replace("\n", ' ')).font
+            font.size = Pt(14)
+        elif (threshold > highRange and threshold <= higherRange):
+            font = p.add_run(dic[i].get('content').replace("\n", ' ')).font
+            font.size = Pt(16)
+        else:
+            font = p.add_run(dic[i].get('content').replace("\n", ' ')).font
+            font.size = Pt(18)
+
+    document.save('demoGradualFontSize.docx')
+    convertDocxToImage("demoGradualFontSize.docx")
 
 
 def fullText (docID):
