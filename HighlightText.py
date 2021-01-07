@@ -5,10 +5,9 @@ from docx.shared import Inches
 from docx.enum.text import WD_COLOR_INDEX
 from pdf2image import convert_from_path
 from docx2pdf import convert
-from docx.shared import Pt
-
 import os
-
+from docx.shared import Pt
+import imgkit
 
 
 def createDir():
@@ -51,6 +50,7 @@ def bold (docID, threshold=0.5):
 
     #document.add_page_break()
     document.save('demoBold.docx')
+    convertDocxToImage("demoBold.docx")
 
 
 
@@ -138,6 +138,7 @@ def GradualFontSize(docID):
             font = p.add_run(dic[i].get('content').replace("\n", ' ')).font
             font.size = Pt(18)
 
+
     document.save('demoGradualFontSize.docx')
     convertDocxToImage("demoGradualFontSize.docx")
 
@@ -154,6 +155,10 @@ def fullText (docID):
         #p.add_text(dic[i].get('content'))
     #document.add_page_break()
     document.save('demoFullText.docx')
+    convertDocxToImage("demoFullText.docx")
+    #document.add_page_break()
+    document.save('fullText.docx')
+    convertDocxToImage("fullText.docx")
 
 
 def convertDocxToImage(fileName):
@@ -167,5 +172,23 @@ def convertDocxToImage(fileName):
         image.save(fname, "PNG")
 
 
+def gradualHighlight(docID):
+    data = DB.get_json(docID)
+    dic = addText.convertToText(data)
+    highlighted_text = []
 
+    for i in range(len(dic)):
+        highlighted_text.append(
+                    '<span style="background-color:rgba(135,206,250,' + str(float(dic[i].get('wight'))) + ');">' +
+                        dic[i].get('content') + '</span>')
+
+    highlighted_text = ' '.join(highlighted_text)
+    with open("demoGradualHighlight.html", "w") as htmlfile:
+        htmlfile.write(highlighted_text)
+
+
+    path_wkthmltoimage = r'C:\Program Files (x86)\wkhtmltopdf\bin\wkhtmltoimage.exe'
+    config = imgkit.config(wkhtmltoimage=path_wkthmltoimage)
+
+    imgkit.from_file('demoGradualHighlight.html', 'demoGradualHighlight.jpg', config=config)
 
