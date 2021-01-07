@@ -141,6 +141,7 @@ def GradualFontSize(docID):
 
     document.save('demoGradualFontSize.docx')
     convertDocxToImage("demoGradualFontSize.docx")
+    DB.storeImg(docID, 'demoGradualFontSize0.png', "GradualFontSize")
 
 
 def fullText (docID):

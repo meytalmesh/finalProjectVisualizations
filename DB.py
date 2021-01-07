@@ -2,6 +2,7 @@ import sqlite3
 
 conn = sqlite3.connect('docDB.db')
 c = conn.cursor()
+print("Connected to SQLite")
 
 # c.execute("SELECT sentenceNum,content,weight FROM text WHERE docID={}")
 
@@ -26,4 +27,22 @@ def get_json (docID):
     print(data[0][0])
     return data
 
+def convertToBinaryData(filename):
+    #Convert digital data to binary format
+    with open(filename, 'rb') as file:
+        blobData = file.read()
+    return blobData
+
+
+
+def storeImg(docID, img, visualisationType):
+    c = conn.cursor()
+    sqlite_insert_blob_query = """ INSERT INTO visualisationImages
+                              (docId, visualisationType, image) VALUES (?, ?, ?)"""
+    image = convertToBinaryData(img)
+    data_tuple = (docID, visualisationType, image)
+    c.execute(sqlite_insert_blob_query, data_tuple)
+ #   c.execute("INSERT INTO visualisationImages values (?, ?, ?)", [docID, visualisationType, sqlite3.Binary(img.read())])
+    conn.commit()
+    c.close()
 
